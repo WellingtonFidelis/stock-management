@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}Stock - Home{% endblock title %}
+{% block title %}Stock - {{ title }}{% endblock title %}
+
 
 {% block content %}
 
 <div class="container mt-3 mx-auto">
     <h1>{{ title }}</h1>
     <legend>{{ sub_title }}</legend>
+
+
+    {% for item in products %}
+    <li>{{ item.item_name }}, {{ item.quantity }}</li>
+    {% endfor %}
 </div>
 
 {% endblock content %}

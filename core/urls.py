@@ -16,6 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from stock_management.views import homeView
+from stock_management.views import homeView, listItemsView
 
-urlpatterns = [path("admin/", admin.site.urls), path("", homeView, name="home")]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", homeView, name="home"),
+    path("list-items", listItemsView, name="list-items"),
+]
