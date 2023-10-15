@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 from stock_management.views import homeView, listItemsView, createItemView
 
 urlpatterns = [
@@ -23,4 +25,4 @@ urlpatterns = [
     path("", homeView, name="home"),
     path("list-items", listItemsView, name="list-items"),
     path("create-item", createItemView, name="create-item"),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

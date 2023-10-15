@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Stock - Home{% endblock title %}
+<head>
+    {% block title %}Stock - Home{% endblock title %}
+</head>
+
 
 {% block content %}
 
-<div class="container mt-3 mx-auto">
-    <h1>{{ title }}</h1>
-    <legend>{{ sub_title }}</legend>
+<div class="container mt-5 p-3 px-5 bg-white rounded">
+    <div class="row gx-3 justify-content-around">
+        <div class="col-12">
+            <h1>{{ title }}</h1>
+            <legend>{{ sub_title }}</legend>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}
