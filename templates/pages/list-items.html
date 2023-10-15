@@ -5,14 +5,27 @@
 
 {% block content %}
 
-<div class="container mt-3 mx-auto">
-    <h1>{{ title }}</h1>
-    <legend>{{ sub_title }}</legend>
+<div class="container mt-3 px-3">
+    <div class="row gx-3 justify-content-around">
+        <div class="col-9">
+            <h1>{{ title }}</h1>
+            <legend>{{ sub_title }}</legend>
+        </div>
+        <div class="col-3 align-self-center">
+            <a type="button" class="btn btn-secondary btn-large" href="{% url 'create-item' %}">Cadastrar novo
+                produto</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center gx-3">
+        <div class="col-10">
+            {% for item in products %}
+            <li>{{ item.item_name }}, {{ item.quantity }}</li>
+            {% endfor %}
+        </div>
+    </div>
 
 
-    {% for item in products %}
-    <li>{{ item.item_name }}, {{ item.quantity }}</li>
-    {% endfor %}
 </div>
 
 {% endblock content %}
