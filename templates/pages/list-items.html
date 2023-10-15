@@ -17,11 +17,29 @@
         </div>
     </div>
 
-    <div class="row justify-content-center gx-3">
-        <div class="col-10">
-            {% for item in products %}
-            <li>{{ item.item_name }}, {{ item.quantity }}</li>
-            {% endfor %}
+    <div class="row justify-content-center gx-3 mt-5 mb-3">
+        <div class="col-12">
+            <table class="table table-hover">
+                <caption>Lista de produtos</caption>
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in products %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.item_name }}</td>
+                        <td>{{ item.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
