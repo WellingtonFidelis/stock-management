@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from stock_management.models import Stock
-from stock_management.forms import StockCreateForm
+from stock_management.forms import StockCreateForm, StockSearchForm
 
 # Create your views here.
 
@@ -22,7 +22,27 @@ def listItemsView(request):
     sub_title = "Aqui você a lista de seus produtos"
     template = "pages/list-items.html"
     queryset = Stock.objects.all()
-    context = {"title": title, "sub_title": sub_title, "products": queryset}
+    form = StockSearchForm(request.POST or None)
+
+    context = {
+        "title": title,
+        "sub_title": sub_title,
+        "products": queryset,
+        "form": form,
+    }
+
+    if request.method == "POST":
+        queryset = Stock.objects.filter(
+            category__icontains=form["category"].value(),
+            item_name__icontains=form["item_name"].value(),
+        )
+
+        context = {
+            "title": title,
+            "sub_title": sub_title,
+            "products": queryset,
+            "form": form,
+        }
 
     return render(request=request, context=context, template_name=template)
 
