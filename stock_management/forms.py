@@ -30,42 +30,14 @@ class StockCreateForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column(
-                    Field("category", css_class="form-control col-4 mb-0"),
                     Field("item_name", css_class="form-control col-4 mb-0"),
+                    Field("category", css_class="form-control col-4 mb-0"),
                     Field("quantity", css_class="form-control col-4 mb-0"),
                 ),
                 css_class="mb-3",
             ),
             Row(Submit("submit", "Salvar", css_class=""), css_class="col-6 mx-auto"),
         )
-
-    category = forms.CharField(
-        label="Categoria",
-        max_length=50,
-        required=True,
-        widget=forms.Select(choices=Stock.CATEGORY_CHOICES),
-    )
-
-    item_name = forms.CharField(
-        label="Nome",
-        # max_length=80,
-        required=True,
-    )
-
-    quantity = forms.IntegerField(
-        label="Quantidade",
-        # max_length=80,
-        initial=0,
-        max_value=1000000,
-        min_value=1,
-        step_size=1,
-        help_text="O valor dever estar entre 1 e 1.000.000",
-        error_messages={
-            "required": "Por favor insira um valor",
-            "invalid": "O valor tem que ser maior que 0 e menor que 1.000.000.",
-        },
-        required=True,
-    )
 
     def clean_category(self):
         category = self.cleaned_data.get("category")
@@ -109,23 +81,16 @@ class StockSearchForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             Row(
-                Column("category", css_class="form-group col-4 mb-0"),
-                Column("item_name", css_class="form-group col-4 mb-0"),
                 Column(
+                    Field("category", css_class="form-control mb-0"),
+                    Field("item_name", css_class="form-control mb-0"),
                     Submit("submit", "Pesquisar"),
-                    css_class="form-group col-2 mb-0 mt-3",
+                    css_class="form-group mb-0",
                 ),
                 css_class="form-row align-items-center justify-content-center",
             ),
         )
 
-        # self.helper.add_input(Submit("Pesquisar", "Submit"))
-
-    category = forms.CharField(
-        label="Categoria",
-        # max_length=80,
-        required=False,
-    )
     item_name = forms.CharField(
         label="Nome",
         # max_length=80,
@@ -156,33 +121,6 @@ class StockUpdateForm(forms.ModelForm):
             ),
             Row(Submit("submit", "Salvar", css_class=""), css_class="col-6 mx-auto"),
         )
-
-    category = forms.CharField(
-        label="Categoria",
-        # max_length=80,
-        required=True,
-    )
-
-    item_name = forms.CharField(
-        label="Nome",
-        # max_length=80,
-        required=True,
-    )
-
-    quantity = forms.IntegerField(
-        label="Quantidade",
-        # max_length=80,
-        initial=0,
-        max_value=1000000,
-        min_value=1,
-        step_size=1,
-        help_text="O valor dever estar entre 1 e 1.000.000",
-        error_messages={
-            "required": "Por favor insira um valor",
-            "invalid": "O valor tem que ser maior que 0 e menor que 1.000.000.",
-        },
-        required=True,
-    )
 
 
 class StockDeleteForm(forms.ModelForm):

@@ -29,25 +29,23 @@ def listItemsView(request):
     queryset = Stock.objects.all()
     form = StockSearchForm(request.POST or None)
 
+    if request.method == "POST":
+        if form["category"].value() == "":
+            queryset = Stock.objects.filter(
+                item_name__icontains=form["item_name"].value(),
+            )
+        else:
+            queryset = Stock.objects.filter(
+                category=form["category"].value(),
+                item_name__icontains=form["item_name"].value(),
+            )
+
     context = {
         "title": title,
         "sub_title": sub_title,
         "products": queryset,
         "form": form,
     }
-
-    if request.method == "POST":
-        queryset = Stock.objects.filter(
-            category__icontains=form["category"].value(),
-            item_name__icontains=form["item_name"].value(),
-        )
-
-        context = {
-            "title": title,
-            "sub_title": sub_title,
-            "products": queryset,
-            "form": form,
-        }
 
     return render(request=request, context=context, template_name=template)
 

@@ -20,16 +20,13 @@
         </div>
     </div>
 
-    <div class="row justify-content-center gx-3 mt-5 mb-3">
-        <div class="col-12">
+    <div class="row justify-content-center gx-5 mt-5 mb-3">
+        <div class="col-3 bg-light rounded py-3">
             {% csrf_token %}
             {% crispy form %}
             <!-- <input type="submit" value="Pesquisar" class="btn btn-success"> -->
         </div>
-    </div>
-
-    <div class="row justify-content-center gx-3 mt-5 mb-3">
-        <div class="col-12">
+        <div class="col-9 mt-4">
             <table class="table table-hover">
                 <caption>Lista de produtos</caption>
                 <thead class="table-light">
