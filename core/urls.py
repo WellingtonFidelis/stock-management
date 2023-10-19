@@ -18,11 +18,17 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from stock_management.views import homeView, listItemsView, createItemView
+from stock_management.views import (
+    homeView,
+    listItemsView,
+    createItemView,
+    updateItemView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", homeView, name="home"),
     path("list-items", listItemsView, name="list-items"),
     path("create-item", createItemView, name="create-item"),
+    path("update-item/<str:pk>/", updateItemView, name="update-item"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

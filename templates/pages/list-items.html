@@ -35,18 +35,25 @@
                 <thead class="table-light">
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Categoria</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Quantidade</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in products %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ item.id }}</td>
                         <td>{{ item.category }}</td>
                         <td>{{ item.item_name }}</td>
                         <td>{{ item.quantity }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="{% url 'update-item' item.id %}"
+                                role="button">Editar</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -130,3 +130,55 @@ class StockSearchForm(forms.ModelForm):
         # max_length=80,
         required=False,
     )
+
+
+class StockUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Stock
+        fields = ["category", "item_name", "quantity"]
+
+    def __init__(self, *args, **kargs):
+        super().__init__(*args, **kargs)
+        self.helper = FormHelper()
+
+        self.helper.form_id = "form-create-item"
+        self.helper.form_class = "g-3"
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            Row(
+                Column(
+                    Field("category", css_class="form-control col-4 mb-0"),
+                    Field("item_name", css_class="form-control col-4 mb-0"),
+                    Field("quantity", css_class="form-control col-4 mb-0"),
+                ),
+                css_class="mb-3",
+            ),
+            Row(Submit("submit", "Salvar", css_class=""), css_class="col-6 mx-auto"),
+        )
+
+    category = forms.CharField(
+        label="Categoria",
+        # max_length=80,
+        required=True,
+    )
+
+    item_name = forms.CharField(
+        label="Nome",
+        # max_length=80,
+        required=True,
+    )
+
+    quantity = forms.IntegerField(
+        label="Quantidade",
+        # max_length=80,
+        initial=0,
+        max_value=1000000,
+        min_value=1,
+        step_size=1,
+        help_text="O valor dever estar entre 1 e 1.000.000",
+        error_messages={
+            "required": "Por favor insira um valor",
+            "invalid": "O valor tem que ser maior que 0 e menor que 1.000.000.",
+        },
+        required=True,
+    )
