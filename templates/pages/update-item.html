@@ -7,15 +7,14 @@
 {% block content %}
 
 <div class="container mt-5 p-3 px-5 bg-white rounded">
-
     <div class="row gx-3 justify-content-around">
-        <div class="col-12">
+        <div class="col-9">
             <h1>{{ title }}</h1>
             <legend>{{ sub_title }}</legend>
         </div>
-        <!-- <div class="col-3 align-self-center">
-            <input type="button" class="btn btn-secondary btn-large" value="Cadastrar novo produto">
-        </div> -->
+        <div class="col-3 align-self-center">
+            <a type="button" class="btn btn-danger btn-sm" href="{% url 'delete-item' product.id %}">Excluir</a>
+        </div>
     </div>
 
     <div class="row justify-content-center gx-3 mt-5 mb-3">

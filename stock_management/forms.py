@@ -182,3 +182,28 @@ class StockUpdateForm(forms.ModelForm):
         },
         required=True,
     )
+
+
+class StockDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Stock
+        fields = ["category", "item_name", "quantity"]
+
+    category = forms.CharField(
+        label="Categoria",
+        # max_length=80,
+        disabled=True,
+        required=False,
+    )
+
+    item_name = forms.CharField(
+        label="Nome",
+        disabled=True,
+        required=False,
+    )
+
+    quantity = forms.IntegerField(
+        label="Quantidade",
+        disabled=True,
+        required=False,
+    )

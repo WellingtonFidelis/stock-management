@@ -23,6 +23,7 @@ from stock_management.views import (
     listItemsView,
     createItemView,
     updateItemView,
+    deleteItemView,
 )
 
 urlpatterns = [
@@ -31,4 +32,5 @@ urlpatterns = [
     path("list-items", listItemsView, name="list-items"),
     path("create-item", createItemView, name="create-item"),
     path("update-item/<str:pk>/", updateItemView, name="update-item"),
+    path("delete-item/<str:pk>/", deleteItemView, name="delete-item"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
