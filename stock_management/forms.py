@@ -66,6 +66,28 @@ class StockCreateForm(forms.ModelForm):
         required=True,
     )
 
+    def clean_category(self):
+        category = self.cleaned_data.get("category")
+
+        if not category:
+            raise forms.ValidationError("Esse campo é obrigatório")
+
+        return category
+
+    def clean_item_name(self):
+        item_name = self.cleaned_data.get("item_name")
+
+        if not item_name:
+            raise forms.ValidationError("Esse campo é obrigatório")
+
+        for i in Stock.objects.all():
+            if i.item_name == item_name:
+                raise forms.ValidationError(
+                    f"Já existe um produto com o nome de: {item_name}"
+                )
+
+        return item_name
+
 
 class StockSearchForm(forms.ModelForm):
     class Meta:
