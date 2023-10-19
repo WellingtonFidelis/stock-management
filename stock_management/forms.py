@@ -41,8 +41,9 @@ class StockCreateForm(forms.ModelForm):
 
     category = forms.CharField(
         label="Categoria",
-        # max_length=80,
+        max_length=50,
         required=True,
+        widget=forms.Select(choices=Stock.CATEGORY_CHOICES),
     )
 
     item_name = forms.CharField(

@@ -2,11 +2,21 @@ from django.db import models
 
 
 # Create your models here.
+
+
 class Stock(models.Model):
+    CATEGORY_CHOICES = (
+        ("it-periferics", "IT Periferics"),
+        ("hardware", "Hardware"),
+        ("software", "Software"),
+    )
+
     category = models.CharField(
+        verbose_name="Categoria",
         max_length=50,
         blank=False,
         null=True,
+        choices=CATEGORY_CHOICES,
     )
     item_name = models.CharField(max_length=50, blank=False, null=True)
     quantity = models.IntegerField(default="0", blank=False, null=True)
