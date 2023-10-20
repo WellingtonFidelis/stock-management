@@ -24,6 +24,7 @@ from stock_management.views import (
     createItemView,
     updateItemView,
     deleteItemView,
+    exportDataView,
 )
 
 urlpatterns = [
@@ -33,4 +34,9 @@ urlpatterns = [
     path("create-item", createItemView, name="create-item"),
     path("update-item/<str:pk>/", updateItemView, name="update-item"),
     path("delete-item/<str:pk>/", deleteItemView, name="delete-item"),
+    path(
+        "export-data-to-csv",
+        exportDataView,
+        name="export-data-to-csv",
+    ),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

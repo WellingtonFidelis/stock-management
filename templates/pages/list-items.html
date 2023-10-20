@@ -15,7 +15,7 @@
             <legend>{{ sub_title }}</legend>
         </div>
         <div class="col-3 align-self-center">
-            <a type="button" class="btn btn-secondary btn-sm" href="{% url 'create-item' %}">Cadastrar novo
+            <a type="button" class="btn btn-success btn-sm" href="{% url 'create-item' %}">Cadastrar novo
                 produto</a>
         </div>
     </div>
@@ -48,13 +48,19 @@
                         <td>{{ item.item_name }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>
-                            <a class="btn btn-primary btn-sm" href="{% url 'update-item' item.id %}"
+                            <a class="btn btn-secondary btn-sm" href="{% url 'update-item' item.id %}"
                                 role="button">Editar</a>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                </tfoot>
             </table>
+
+            {% if products %}
+            <a class="btn btn-light btn-link btn-sm" href="{% url 'export-data-to-csv' %}">Exportar</a>
+            {% endif %}
         </div>
     </div>
 

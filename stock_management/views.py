@@ -1,4 +1,7 @@
+import csv
+import datetime
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from stock_management.models import Stock
 from stock_management.forms import (
     StockCreateForm,
@@ -31,6 +34,8 @@ def listItemsView(request):
 
     if request.method == "POST":
         if form["category"].value() == "":
+            item_name_filter = form["item_name"].value()
+
             queryset = Stock.objects.filter(
                 item_name__icontains=form["item_name"].value(),
             )
@@ -39,6 +44,10 @@ def listItemsView(request):
                 category=form["category"].value(),
                 item_name__icontains=form["item_name"].value(),
             )
+
+    # Setting 2 variables on seesion request to use on export data to csv
+    request.session["category_filter"] = form["category"].value()
+    request.session["item_name_filter"] = form["item_name"].value()
 
     context = {
         "title": title,
@@ -114,3 +123,36 @@ def deleteItemView(request, pk):
     }
 
     return render(request=request, context=context, template_name=template)
+
+
+def exportDataView(request):
+    queryset = Stock.objects.all()
+
+    # Getting data from session
+    category_filter = request.session["category_filter"]
+    item_name_filter = request.session["item_name_filter"]
+
+    if request.method == "GET":
+        if not category_filter:
+            queryset = Stock.objects.filter(
+                item_name__icontains=item_name_filter if item_name_filter else "",
+            )
+        else:
+            queryset = Stock.objects.filter(
+                category=category_filter if category_filter else "",
+                item_name__icontains=item_name_filter if item_name_filter else "",
+            )
+
+        response = HttpResponse(content_type="text/csv")
+        response[
+            "Content-Disposition"
+        ] = 'attachment; filename="lista-produtos-{}.csv"'.format(
+            datetime.datetime.now()
+        )
+        writer = csv.writer(response)
+        writer.writerow(["ID", "CATEGORY", "ITEM_NAME", "QUANTITY"])
+        instance = queryset
+        for item in instance:
+            writer.writerow([item.id, item.category, item.item_name, item.quantity])
+
+        return response
