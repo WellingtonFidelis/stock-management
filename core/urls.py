@@ -25,6 +25,7 @@ from stock_management.views import (
     updateItemView,
     deleteItemView,
     exportDataView,
+    detailItemView,
 )
 
 urlpatterns = [
@@ -33,6 +34,7 @@ urlpatterns = [
     path("list-items", listItemsView, name="list-items"),
     path("create-item", createItemView, name="create-item"),
     path("update-item/<str:pk>/", updateItemView, name="update-item"),
+    path("detail-item/<str:pk>/", detailItemView, name="detail-item"),
     path("delete-item/<str:pk>/", deleteItemView, name="delete-item"),
     path(
         "export-data-to-csv",

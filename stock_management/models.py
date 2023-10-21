@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 
 # Create your models here.
 
@@ -33,8 +33,8 @@ class Stock(models.Model):
     phone_number = models.CharField(max_length=50, blank=True, null=True)
     created_by = models.CharField(max_length=50, blank=True, null=True)
     reorder_level = models.IntegerField(default="0", blank=True, null=True)
-    last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    export_to_CSV = models.BooleanField(default=False)
+    last_updated = models.DateTimeField(verbose_name="Atualizado", auto_now=True)
+    created_date = models.DateField(verbose_name="Criado", auto_now_add=True)
 
     def __str__(self):
         return self.item_name

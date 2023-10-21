@@ -101,7 +101,11 @@ class StockSearchForm(forms.ModelForm):
 class StockUpdateForm(forms.ModelForm):
     class Meta:
         model = Stock
-        fields = ["category", "item_name", "quantity"]
+        fields = [
+            "category",
+            "item_name",
+            "quantity",
+        ]
 
     def __init__(self, *args, **kargs):
         super().__init__(*args, **kargs)

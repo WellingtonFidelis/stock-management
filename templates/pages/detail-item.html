@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Stock - {{ title }}{% endblock title %}
+
+
+{% block content %}
+
+<div class="container mt-5 p-3 px-5 bg-white rounded">
+    <div class="row gx-3 justify-content-around">
+        <div class="col-9">
+            <h1>{{ title }}</h1>
+            <legend>{{ sub_title }}</legend>
+        </div>
+        <div class="col-3 align-self-center">
+            <a type="button" class="btn btn-secondary btn-sm" href="{% url 'list-items' %}">Voltar</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center gx-3 mt-5 mb-3">
+        <div class="col-10">
+            <div>
+                <div class="row mb-3">
+                    <label for="item_name" class="col-2 col-form-label">Nome</label>
+                    <div class="col-10">
+                        <input type="input" class="form-control" id="item_name" placeholder=""
+                            value="{{ product.item_name }}" disabled>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="category" class="col-2 col-form-label">Categoria</label>
+                    <div class="col-10">
+                        <input type="input" class="form-control" id="category" placeholder=""
+                            value="{{ product.category }}" disabled>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="quantity" class="col-2 col-form-label">Quantidade em estoque</label>
+                    <div class="col-10">
+                        <input type="input" class="form-control" id="quantity" placeholder=""
+                            value="{{ product.quantity }}" disabled>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="last-updated" class="col-2 col-form-label">Atualizado em</label>
+                    <div class="col-10">
+                        <input type="input" class="form-control" id="last-updated" placeholder=""
+                            value="{{ product.last_updated  | date:'d-m-Y, H:m:s' }}" disabled>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="created-date" class="col-2 col-form-label">Criado em</label>
+                    <div class="col-10">
+                        <input type="input" class="form-control" id="created-date" placeholder=""
+                            value="{{ product.created_date | date:'d-m-Y' }}" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

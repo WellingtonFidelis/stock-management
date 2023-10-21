@@ -11,6 +11,7 @@ class StockCreateAdmin(admin.ModelAdmin):
     form = StockCreateForm
     list_filter = ["category"]
     search_fields = ["category", "item_name"]
+    readonly_fields = ["last_updated", "created_date"]
 
 
 admin.site.register(Stock, StockCreateAdmin)

@@ -71,11 +71,7 @@ def createItemView(request):
 
         messages.success(request, "O produto foi criado com sucesso.")
 
-        print(
-            "O produto {} foi criado com sucesso. {}".format(
-                queryset.item_name, datetime.datetime.now()
-            )
-        )
+        print("O produto foi criado com sucesso.")
 
         return redirect("/list-items")
 
@@ -102,11 +98,13 @@ def updateItemView(request, pk):
         if form.is_valid():
             form.save()
 
-            messages.success(request, "O produto foi atualizado com sucesso.")
+            messages.success(
+                request, "O produto {} foi atualizado com sucesso.".format(queryset)
+            )
 
             print(
-                "O produto {} foi atualizado com sucesso. {}".format(
-                    queryset.item_name, datetime.datetime.now()
+                "=> {} => INFO => O produto {} foi atualizado com sucesso.".format(
+                    datetime.datetime.now(), queryset
                 )
             )
 
@@ -135,11 +133,7 @@ def deleteItemView(request, pk):
 
         messages.success(request, "O produto foi excluído permanentemente com sucesso.")
 
-        print(
-            "O produto {} foi deletado com sucesso. {}".format(
-                queryset.item_name, datetime.datetime.now()
-            )
-        )
+        print("O produto foi deletado com sucesso.")
 
         return redirect("/list-items")
 
@@ -184,3 +178,19 @@ def exportDataView(request):
             writer.writerow([item.id, item.category, item.item_name, item.quantity])
 
         return response
+
+
+def detailItemView(request, pk):
+    title = "Detalhes do produto"
+    sub_title = "Aqui você encontra todas as informações do seu produto."
+    template = "pages/detail-item.html"
+
+    queryset = Stock.objects.get(id=pk)
+
+    context = {
+        "title": title,
+        "sub_title": sub_title,
+        "product": queryset,
+    }
+
+    return render(request=request, context=context, template_name=template)
