@@ -2,6 +2,7 @@ import csv
 import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from stock_management.models import Stock
 from stock_management.forms import (
     StockCreateForm,
@@ -67,6 +68,15 @@ def createItemView(request):
 
     if form.is_valid():
         form.save()
+
+        messages.success(request, "O produto foi criado com sucesso.")
+
+        print(
+            "O produto {} foi criado com sucesso. {}".format(
+                queryset.item_name, datetime.datetime.now()
+            )
+        )
+
         return redirect("/list-items")
 
     context = {
@@ -91,6 +101,15 @@ def updateItemView(request, pk):
 
         if form.is_valid():
             form.save()
+
+            messages.success(request, "O produto foi atualizado com sucesso.")
+
+            print(
+                "O produto {} foi atualizado com sucesso. {}".format(
+                    queryset.item_name, datetime.datetime.now()
+                )
+            )
+
             return redirect("/list-items")
 
     context = {
@@ -113,6 +132,15 @@ def deleteItemView(request, pk):
 
     if request.method == "POST":
         queryset.delete()
+
+        messages.success(request, "O produto foi excluído permanentemente com sucesso.")
+
+        print(
+            "O produto {} foi deletado com sucesso. {}".format(
+                queryset.item_name, datetime.datetime.now()
+            )
+        )
+
         return redirect("/list-items")
 
     context = {
