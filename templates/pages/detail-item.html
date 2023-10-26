@@ -13,7 +13,21 @@
             <legend>{{ sub_title }}</legend>
         </div>
         <div class="col-3 align-self-center">
-            <a type="button" class="btn btn-secondary btn-sm" href="{% url 'list-items' %}">Voltar</a>
+            <div class="row mb-2 g-3">
+                <div class="col">
+                    <a type="button" class="btn btn-secondary btn-sm col-4" href="{% url 'list-items' %}">Voltar</a>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-auto">
+                    <a type="button" class="btn btn-warning btn-sm"
+                        href="{% url 'create-issue-item' product.id %}">Saída</a>
+                </div>
+                <div class="col-auto">
+                    <a type="button" class="btn btn-success btn-sm"
+                        href="{% url 'create-receive-item' product.id %}">Entrada</a>
+                </div>
+            </div>
         </div>
     </div>
 

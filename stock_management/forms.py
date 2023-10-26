@@ -150,3 +150,15 @@ class StockDeleteForm(forms.ModelForm):
         disabled=True,
         required=False,
     )
+
+
+class IssueForm(forms.ModelForm):
+    class Meta:
+        model = Stock
+        fields = ["issue_quantity", "issue_to"]
+
+
+class ReceiveForm(forms.ModelForm):
+    class Meta:
+        model = Stock
+        fields = ["receive_quantity", """receive_by"""]

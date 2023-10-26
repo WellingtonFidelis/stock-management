@@ -9,6 +9,8 @@ from stock_management.forms import (
     StockSearchForm,
     StockUpdateForm,
     StockDeleteForm,
+    IssueForm,
+    ReceiveForm,
 )
 
 # Create your views here.
@@ -194,3 +196,71 @@ def detailItemView(request, pk):
     }
 
     return render(request=request, context=context, template_name=template)
+
+
+def issueItemView(request, pk):
+    title = "Registro de saídas"
+    sub_title = "Aqui você conseguirá registrar as quantidades movimentadas para fora do seu estoque."
+    template = "pages/create-issue-item.html"
+
+    queryset = Stock.objects.get(id=pk)
+    form = IssueForm(request.POST or None, instance=queryset)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.quantity -= instance.issue_quantity
+        # instance.issue_by = str(request.user)
+
+        messages.success(
+            request,
+            f"Movimentação realizada com sucesso. A quantidade de {instance.issue_quantity} foi subtraida do {instance.item_name}.",
+        )
+
+        instance.save()
+
+        return redirect("detail-item", pk=pk)
+        # return HttpResponseRedirect(instance.get_absolue_url())
+
+    context = {
+        "title": title,
+        "sub_title": sub_title,
+        "issue": queryset,
+        "form": form,
+        "user_name": f"Movimentação realizada pelo: {request.user}",
+    }
+
+    return render(request=request, template_name=template, context=context)
+
+
+def receiveItemView(request, pk):
+    title = "Registro de entradas"
+    sub_title = "Aqui você conseguirá registrar as quantidades movimentadas para dentro do seu estoque."
+    template = "pages/create-receive-item.html"
+
+    queryset = Stock.objects.get(id=pk)
+    form = ReceiveForm(request.POST or None, instance=queryset)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.quantity += instance.receive_quantity
+        # instance.issue_by = str(request.user)
+
+        messages.success(
+            request,
+            f"Movimentação realizada com sucesso. A quantidade de {instance.receive_quantity} foi somada do {instance.item_name}.",
+        )
+
+        instance.save()
+
+        return redirect("detail-item", pk=pk)
+        # return HttpResponseRedirect(instance.get_absolue_url())
+
+    context = {
+        "title": title,
+        "sub_title": sub_title,
+        "receive": queryset,
+        "form": form,
+        "user_name": f"Movimentação realizada pelo: {request.user}",
+    }
+
+    return render(request=request, template_name=template, context=context)

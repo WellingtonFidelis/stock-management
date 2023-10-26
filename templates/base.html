@@ -28,6 +28,21 @@
     </header>
     <main>
         <section>
+            <div>
+                {% if messages %}
+
+                {% for message in messages %}
+                <div class="position-absolute top-20 end-0 translate-middle mt-3 mb-0">
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+                {% endif %}
+            </div>
             <div class="">
                 {% block content %}
                 {% endblock content %}
