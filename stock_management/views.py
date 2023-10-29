@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from stock_management.models import Stock
 from stock_management.forms import (
+    ReorderLevelForm,
     StockCreateForm,
     StockSearchForm,
     StockUpdateForm,
@@ -264,3 +265,23 @@ def receiveItemView(request, pk):
     }
 
     return render(request=request, template_name=template, context=context)
+
+
+def reorderLevelItemView(request, pk):
+    queryset = Stock.objects.get(id=pk)
+    form = ReorderLevelForm(request.POST or None, instance=queryset)
+    template = "pages/create-item.html"
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, f"Nível de reabasteciamento para o {instance.item_name} foi atualizada para {instance.reorder_level}.")
+
+        return redirect("/list-items")
+
+    context = {}
+    context["instance"] = queryset
+    context["form"] = form
+
+    return render(request=request, template_name=template, context=context)
+

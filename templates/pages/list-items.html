@@ -37,6 +37,7 @@
                         <th scope="col">Categoria</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Quantidade</th>
+                        <th scope="col">Nível de reabastecimento</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -47,12 +48,23 @@
                         <td>{{ item.id }}</td>
                         <td>{{ item.category }}</td>
                         <td>{{ item.item_name }}</td>
-                        <td>{{ item.quantity }}</td>
                         <td>
-                            <a class="btn btn-secondary btn-sm" href="{% url 'update-item' item.id %}"
-                                role="button">Editar</a>
-                            <a class="btn btn-info btn-sm" href="{% url 'detail-item' item.id %}"
-                                role="button">Detalhes</a>
+                          {% if item.quantity <= item.reorder_level %}
+                          <span class="text-danger">{{ item.quantity }}</span>
+                          {% else %}
+                          <span class="text-dark">{{ item.quantity }}</span>
+                          {% endif %}
+                        </td>
+                        <td>{{ item.reorder_level }}</td>
+                        <td>
+                            <div class="btn-group">
+                              <a class="btn btn-secondary btn-sm" href="{% url 'update-item' item.id %}"
+                                  role="button">Editar</a>
+                              <a class="btn btn-info btn-sm" href="{% url 'detail-item' item.id %}"
+                                  role="button">Detalhes</a>
+                              <a class="btn btn-warning btn-sm" href="{% url 'reorder-level-item' item.id %}"
+                                  role="button">Reabastec.</a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}

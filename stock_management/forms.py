@@ -5,10 +5,6 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     Layout,
     Field,
-    Fieldset,
-    Div,
-    HTML,
-    ButtonHolder,
     Submit,
     Row,
     Column,
@@ -162,3 +158,28 @@ class ReceiveForm(forms.ModelForm):
     class Meta:
         model = Stock
         fields = ["receive_quantity", """receive_by"""]
+
+
+class ReorderLevelForm(forms.ModelForm):
+    class Meta:
+        model = Stock
+        fields = ["reorder_level"]
+
+
+    def __init__(self, *args, **kargs):
+        super().__init__(*args, **kargs)
+        self.helper = FormHelper()
+
+        self.helper.form_id = "form-create-item"
+        self.helper.form_class = "g-3"
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            Row(
+                Column(
+                    Field("reorder_level", css_class="form-control col-4 mb-0"),
+                ),
+                css_class="mb-3",
+            ),
+            Row(Submit("submit", "Salvar", css_class=""), css_class="col-6 mx-auto"),
+        )
+

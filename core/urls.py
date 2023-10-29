@@ -28,6 +28,7 @@ from stock_management.views import (
     detailItemView,
     issueItemView,
     receiveItemView,
+    reorderLevelItemView,
 )
 
 urlpatterns = [
@@ -45,4 +46,5 @@ urlpatterns = [
     ),
     path("create-issue-item/<str:pk>/", issueItemView, name="create-issue-item"),
     path("create-receive-item/<str:pk>/", receiveItemView, name="create-receive-item"),
+    path("reorder_level/<str:pk>/", reorderLevelItemView, name="reorder-level-item"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
